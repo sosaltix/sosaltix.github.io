@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sosaltix2 — Операционная система на Rust</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rust: {
+                            50: '#fdf3f0',
+                            500: '#e05a36',
+                            600: '#c84626',
+                            700: '#a3341b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #ff8c00 0%, #e05a36 50%, #9a3412 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-rust-500 selection:text-white">
+
+    <!-- Навигационная панель -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-3 group">
+                <span class="text-2xl font-black tracking-wider text-rust-500 group-hover:text-rust-600 transition-colors">SOSALTIX<span class="text-white">2</span></span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-400">
+                <a href="#features" class="hover:text-white transition-colors">Особенности</a>
+                <a href="#license" class="hover:text-white transition-colors">Лицензия (SosalGPL)</a>
+                <a href="#get-started" class="hover:text-white transition-colors">Установка и Сборка</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/ktoto42-oss/sosaltix2" target="_blank" class="flex items-center space-x-2 text-sm bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-lg transition-all text-zinc-300 hover:text-white">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный экран (Hero Section) -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-rust-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-10 left-10 w-[300px] h-[300px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center z-10">
+            <span class="inline-flex items-center space-x-2 bg-rust-500/10 border border-rust-500/30 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider text-rust-500 uppercase mb-8">
+                🦀 Rust 2024 Edition <!--[cite: 1] -->
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+                Проект <span class="gradient-text">sosaltix2</span> <!--[cite: 1] -->
+            </h1>
+            <p class="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Маленькая операционная система на Rust, реализующая базовое ядро x86_64 с поддержкой прерываний, управления памятью и асинхронной кооперативной многозадачности. <!--[cite: 1] -->
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#get-started" class="w-full sm:w-auto px-8 py-4 bg-rust-500 hover:bg-rust-600 text-white font-semibold rounded-lg shadow-lg shadow-rust-500/20 transition-all text-center">
+                    Собрать ядро
+                </a>
+                <a href="#license" class="w-full sm:w-auto px-8 py-4 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white font-semibold rounded-lg transition-all text-center">
+                    Ознакомиться с SosalGPL
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Особенности (Features) -->
+    <section id="features" class="py-24 border-t border-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Ключевые Особенности</h2>
+                <p class="text-zinc-400 max-w-xl mx-auto">Функционал ядра sosaltix2, реализованный полностью на низкоуровневом стеке. <!--[cite: 1] --></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Карта 1: Написано на Rust -->
+                <div class="p-8 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-rust-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-rust-500/10 text-rust-500 flex items-center justify-center rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Стек Rust (no_std)</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Безопасность работы с памятью прямо на уровне "железа" без использования стандартной библиотеки Rust. <!--[cite: 1] -->
+                    </p>
+                </div>
+
+                <!-- Карта 2: Асинхронность -->
+                <div class="p-8 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-rust-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-rust-500/10 text-rust-500 flex items-center justify-center rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Кооперативный Async</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Полноценная поддержка конструкций <code class="text-rust-400 font-mono">async/await</code> и легковесная кооперативная многозадачность. <!--[cite: 1] -->
+                    </p>
+                </div>
+
+                <!-- Карта 3: FAT32 -->
+                <div class="p-8 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-rust-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-rust-500/10 text-rust-500 flex items-center justify-center rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Поддержка FAT32</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Интегрированная работа с файловой системой FAT32: создание, чтение, изменение и удаление файлов. <!--[cite: 1] -->
+                    </p>
+                </div>
+
+                <!-- Карта 4: Управление памятью -->
+                <div class="p-8 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-rust-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-rust-500/10 text-rust-500 flex items-center justify-center rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Пейджинг и куча</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Реализована виртуальная память с страничной адресацией (paging) и кастомная динамическая память (heap allocator). <!--[cite: 1] -->
+                    </p>
+                </div>
+
+                <!-- Карта 5: Клавиатура -->
+                <div class="p-8 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-rust-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-rust-500/10 text-rust-500 flex items-center justify-center rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Драйвер клавиатуры</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Низкоуровневая обработка прерываний и корректный парсинг скан-кодов с PS/2 клавиатуры. <!--[cite: 1] -->
+                    </p>
+                </div>
+
+                <!-- Карта 6: x86_64 & QEMU -->
+                <div class="p-8 bg-zinc-900/50 border border-zinc-800 rounded-2xl hover:border-rust-500/30 transition-all group">
+                    <div class="w-12 h-12 bg-rust-500/10 text-rust-500 flex items-center justify-center rounded-xl mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Запуск в QEMU</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Ядро полностью совместимо со спецификацией архитектуры x86_64 и готово к отладке в эмуляторах. <!--[cite: 1] -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел Лицензии: SosalGPL v2.0 -->
+    <section id="license" class="py-24 bg-zinc-900/40 border-t border-zinc-900 relative">
+        <!-- Декоративное свечение -->
+        <div class="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-amber-500/30 rounded-3xl p-8 md:p-16 shadow-2xl relative overflow-hidden">
+                <!-- Оранжевая плашка -->
+                <div class="absolute top-0 right-0 bg-amber-500/10 border-l border-b border-amber-500/20 px-6 py-2 rounded-bl-2xl text-xs font-mono text-amber-500">
+                    SosalGPL v2.0 <!--[cite: 2] -->
+                </div>
+
+                <div class="max-w-3xl">
+                    <span class="text-amber-500 font-bold text-sm tracking-widest uppercase block mb-4">Архитектурный стандарт безопасности</span>
+                    <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-6">
+                        Лицензия <span class="text-amber-500">SosalGPL</span> <!--[cite: 2] -->
+                    </h2>
+                    <p class="text-zinc-400 leading-relaxed mb-8">
+                        Проект sosaltix2 распространяется по лицензии <strong>Sosal General Public License v2.0</strong>. Настоящее соглашение ставит своей целью фиксацию строжайших архитектурных квот для минимизации уязвимостей в производных продуктах.
+                    </p>
+
+                    <!-- Сетка жестких условий -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                        <!-- Квота Rust кода -->
+                        <div class="border-l-2 border-rust-500 pl-4">
+                            <h4 class="text-lg font-bold text-white mb-2">Квота на Rust (50%+)</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Любое модифицированное произведение обязано содержать <strong>не менее 50% исходного кода на Rust</strong>. Объем рассчитывается утилитой <code class="text-amber-400 font-mono">cloc (>=1.96)</code> или <code class="text-amber-400 font-mono">tokei (>=12.1.2)</code>.
+                            </p>
+                        </div>
+
+                        <!-- Лимит unsafe -->
+                        <div class="border-l-2 border-rust-500 pl-4">
+                            <h4 class="text-lg font-bold text-white mb-2">Запрет на Unsafe (≤1.0%)</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Строгий математический лимит: объем кода внутри контекста <code class="text-red-400 font-mono">unsafe</code> <strong>не может превышать 1.0%</strong> от общего объема кода на Rust. Контролируется через <code class="text-amber-400 font-mono">cargo-geiger (>=0.11.0)</code>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Споры и аудит -->
+                    <div class="p-6 bg-zinc-950/80 rounded-xl border border-zinc-800 text-zinc-400 text-sm">
+                        <div class="flex items-start space-x-3">
+                            <svg class="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            <div>
+                                <strong class="text-white">Независимый аудит под NDA:</strong> Лицензиар вправе инициировать аудит. Код закрытых проектов передается только независимому аудитору с отправкой исключительно Отчета о соответствии (Compliance Report) без раскрытия самой интеллектуальной собственности.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Сборка и Установка (Get Started) -->
+    <section id="get-started" class="py-24 border-t border-zinc-900">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Сборка и Запуск ядра</h2>
+                <p class="text-zinc-400">Пошаговое развертывание среды разработки под nightly-ветку Rust. <!--[cite: 1] --></p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Шаги -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 rounded-lg bg-rust-500/10 border border-rust-500/30 flex items-center justify-center font-bold text-rust-500">1</div>
+                        <div>
+                            <h4 class="font-bold text-white mb-1">Переключение на Nightly</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Проект активно задействует нестабильные nightly-фичи ядра компилятора. <!--[cite: 1] -->
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 rounded-lg bg-rust-500/10 border border-rust-500/30 flex items-center justify-center font-bold text-rust-500">2</div>
+                        <div>
+                            <h4 class="font-bold text-white mb-1">Установка системных компонентов</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Нам понадобятся исходники <code class="text-rust-400 font-mono">rust-src</code> и тулчейн <code class="text-rust-400 font-mono">llvm-tools-preview</code> для линковки bare-metal. <!--[cite: 1] -->
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 rounded-lg bg-rust-500/10 border border-rust-500/30 flex items-center justify-center font-bold text-rust-500">3</div>
+                        <div>
+                            <h4 class="font-bold text-white mb-1">Запуск UEFI</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Загрузка и компиляция готового бинарного образа в виртуальной машине QEMU. <!--[cite: 1] -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Консоль -->
+                <div class="lg:col-span-7 bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="flex items-center justify-between px-6 py-3 border-b border-zinc-800 bg-zinc-900/50">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                        </div>
+                        <span class="text-xs text-zinc-500 font-mono">bash (Arch Linux)</span>
+                    </div>
+                    
+                    <div class="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
+                        <!-- Настройка rustup -->
+                        <div class="mb-6">
+                            <p class="text-zinc-500"># 1. Активируем nightly-профиль</p>
+                            <p class="text-rust-500">rustup default nightly <span class="text-zinc-400"><!--[cite: 1] --></span></p>
+                        </div>
+
+                        <!-- Компоненты -->
+                        <div class="mb-6">
+                            <p class="text-zinc-500"># 2. Добавляем компоненты для bare-metal сборки</p>
+                            <p class="text-zinc-300">rustup component add rust-src <span class="text-zinc-400"><!--[cite: 1] --></span></p>
+                            <p class="text-zinc-300">rustup component add llvm-tools-preview <span class="text-zinc-400"><!--[cite: 1] --></span></p>
+                        </div>
+
+                        <!-- Клонирование и запуск -->
+                        <div>
+                            <p class="text-zinc-500"># 3. Клонируем проект и собираем под UEFI</p>
+                            <p class="text-zinc-300">git clone https://github.com/ktoto42-oss/sosaltix2.git <span class="text-zinc-400"><!--[cite: 1] --></span></p>
+                            <p class="text-zinc-300">cd sosaltix2 <span class="text-zinc-400"><!--[cite: 1] --></span></p>
+                            <p class="text-rust-500">cargo run uefi <span class="text-zinc-400"><!--[cite: 1] --></span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал (Footer) -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 py-12 text-zinc-500 text-sm">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <span class="text-white font-bold tracking-wider">SOSALTIX2</span> — Разработка ОС на Rust в рамках лицензии SosalGPL v2.0. <!--[cite: 1, 2] -->
+            </div>
+            <div class="flex space-x-6 text-zinc-400">
+                <a href="https://github.com/ktoto42-oss/sosaltix2" target="_blank" class="hover:text-rust-500 transition-colors">GitHub</a>
+                <span>|</span>
+                <span>Licensed under SosalGPL v2.0</span> <!--[cite: 2] -->
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
